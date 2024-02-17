@@ -11,8 +11,6 @@ RUN  mkdir -p /home/LogFiles \
 
 RUN  pip install redis
 
-RUN  pip install pytest
-
 EXPOSE 2222 80
  
 ADD     /azure-vote /app
