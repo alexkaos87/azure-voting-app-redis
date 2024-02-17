@@ -9,7 +9,7 @@ RUN  mkdir -p /home/LogFiles \
      && apt update \
      && apt install -y --no-install-recommends openssh-server vim curl wget tcptraceroute
 
-RUN  pip install redis
+RUN  pip install redis pytest
 
 EXPOSE 2222 80
  
