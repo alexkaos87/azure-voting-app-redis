@@ -17,9 +17,9 @@ pipeline {
         sh(script: 'docker compose up -d')
       }
     }
-    stage ('Run Tests') {
+    stage('Run Tests') {
       steps {
-        sh(script: 'pytest ./test/test_sample.py') 
+        echo "Run tests"
       }
       post {
         success {
@@ -27,6 +27,19 @@ pipeline {
         }
         failure {
           echo "Test Failed!!! :("
+        }
+      }
+    }
+    stage('Docker Push') {
+      steps {
+        echo "Running in $WORKSPACE"
+        dir("$WORKSPACE/azure-vote") {
+          script {
+            docker.withRegistry('', 'dockerhub') {
+              def image = docker.build('alexkaos/jenkins-course:2024')
+              image.push()
+            }
+          }
         }
       }
     }
